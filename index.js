@@ -1,25 +1,23 @@
 // index.js -- server side 
 import bodyParser from 'body-parser';
 import express from 'express';
-import authUser from './routes/authUser.js ';
-import * as mongoose from "mongoose";
+import auth from './routes/auth.js ';
+import mongooseDbConnect from './config/database.js';
 
 const app = express();
 const port = 4000;
 
-//connect db
-// mongoose.connect('mongodb://localhost:27017/myDB',{ useNewUrlParser: true, 
-//     useUnifiedTopology: true,
-//     useCreateIndex:true,
-//                useFindAndModify: false  });
+// connect db
+app.use(mongooseDbConnect());
 
-//Route Middlewares
-app.use('/api/user',authUser);
-
-app.use(bodyParser.urlencoded({ // Middleware
+//Middleware
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ 
     extended: true
 }));
-app.use(bodyParser.json()); // for parsing application/json
+
+//Route Middlewares
+app.use('/api/user',auth);
 
 // entry route for root / request
 app.get('/', (req, res) => {
