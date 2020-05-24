@@ -3,6 +3,11 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import auth from './routes/auth.js ';
 import mongooseDbConnect from './config/database.js';
+import dotenv from 'dotenv';
+import postRoute from './routes/posts.js';
+
+
+dotenv.config();
 
 const app = express();
 const port = 4000;
@@ -18,6 +23,7 @@ app.use(bodyParser.urlencoded({
 
 //Route Middlewares
 app.use('/api/user',auth);
+app.use('/api/posts',postRoute);
 
 // entry route for root / request
 app.get('/', (req, res) => {
