@@ -5,7 +5,7 @@ import auth from './routes/auth.js ';
 import mongooseDbConnect from './config/database.js';
 import dotenv from 'dotenv';
 import postRoute from './routes/posts.js';
-
+import addRes from './routes/addRes.js';
 
 dotenv.config();
 
@@ -24,6 +24,8 @@ app.use(bodyParser.urlencoded({
 //Route Middlewares
 app.use('/api/user',auth);
 app.use('/api/posts',postRoute);
+
+app.use('/api/addRes',addRes);
 
 // entry route for root / request
 app.get('/', (req, res) => {
@@ -44,13 +46,14 @@ app.get('/home', (req, res) => {
 
 
 // app.post('/SignIn', (req, res) => {
-//     console.log(req.body.email);
+//     res.send(restaurant);
 //   })
 
-app.post('/admin/add-res', (req, res) => {
-    restaurant.push(req.body)
-    res.status(201).json(req.body)
-  })
+// app.post('/admin/add-res', (req, res) => {
+//     restaurant.push(req.body)
+//     res.status(201).json(req.body)
+//   })
+
 
 
 // make server start listening on a specified port

@@ -3,7 +3,7 @@ import verify from './verifyToken.js';
 
 let posts = express.Router();
 
-posts.get('/', verify ,(req,res)=>{
+posts.get('/RestaurantAdmin', verify ,(req,res)=>{
     res.send(req.user);
     // User.findbyOne({_id:req.user});
 })
