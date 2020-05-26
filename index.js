@@ -43,6 +43,10 @@ app.get('/home', (req, res) => {
 })
 
 
+// app.post('/SignIn', (req, res) => {
+//     console.log(req.body.email);
+//   })
+
 app.post('/admin/add-res', (req, res) => {
     restaurant.push(req.body)
     res.status(201).json(req.body)

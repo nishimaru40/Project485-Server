@@ -6,6 +6,8 @@ import jwt from 'jsonwebtoken';
 
 let auth = express.Router();
 
+
+
 //-----------------------------------Register-----------------------------------
 //validate of register  
     const schemaForRegis = Joi.object({
@@ -13,7 +15,7 @@ let auth = express.Router();
     email:Joi.string().min(6).required().email(),
     password:Joi.string().min(8).required()
 });
-auth.post('/register', async (req, res)=>{
+auth.post('/signUp', async (req, res)=>{
     // res.send('Register');
     
     //validation 
@@ -50,7 +52,8 @@ const schemaForLogin = Joi.object({
     password:Joi.string().min(8).required()
 });
 
-auth.post('/login', async (req, res)=>{
+auth.post('/signIn', async (req, res)=>{
+    
     const {error} = schemaForLogin.validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     
@@ -64,18 +67,10 @@ auth.post('/login', async (req, res)=>{
         
     //create and assign a token
     const token = jwt.sign({_id:user._id}, process.env.TOKEN_SECRET);
-    res.header('auth-token',token).send(token);
-    
+    // res.header('auth-token',token).send(token);
 
-
-    
     res.send('Login สำเร็จ');
+    
 
 });
-
-
-
-
-
-
 export default auth;
